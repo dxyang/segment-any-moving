@@ -7,3 +7,6 @@
 [submodule "detectron_pytorch"]
 	path = detectron_pytorch
 	url = https://github.com/achalddave/segment-any-moving_detectron/
+[submodule "flownet2"]
+	path = flownet2
+	url = git@github.com:dxyang/flownet2.git

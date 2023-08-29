@@ -152,8 +152,7 @@ def compute_flownet2_flow(flo_input_outputs, logger, gpu,
     prototxt = flownet_root / 'models' / model_info[cnn_model]['prototxt']
 
     os.environ['CAFFE_PATH'] = str(flownet_root)
-    os.environ['PYTHONPATH'] = '%s:%s' % (flownet_root / 'python',
-                                          os.environ['PYTHONPATH'])
+    os.environ['PYTHONPATH'] = str(flownet_root / 'python')
     os.environ['LD_LIBRARY_PATH'] = '%s:%s' % (flownet_root / 'build' / 'lib',
                                                os.environ['LD_LIBRARY_PATH'])
 
@@ -228,7 +227,7 @@ def compute_sequence_flow(input_dir, output_dir, flow_fn, flow_args, gpu_queue,
     # function was called
     flo_outputs_all = []
 
-    for frame1, frame2 in zip(image_paths[:-1], image_paths[1:]):
+    for frame1, frame2 in tqdm(zip(image_paths[:-1], image_paths[1:])):
         flo = output_dir / (frame1.stem + '.flo')
         flo_outputs_all.append(flo)
         converted_already = False
@@ -255,7 +254,7 @@ def compute_sequence_flow(input_dir, output_dir, flow_fn, flow_args, gpu_queue,
         times['gpu_wait_start'] = times['gpu_wait_end'] = 0
 
     if convert_png == 'default':
-        for flo_path in flo_outputs_all:
+        for flo_path in tqdm(flo_outputs_all):
             try:
                 if flo_path.exists():
                     convert_flo(flo_path)
@@ -408,7 +407,7 @@ def main():
             'gpu_queue': gpu_queue,
             'logger_name': file_logger.name,
             'convert_png': convert_png,
-            'remove_flo': bool(convert_png),
+            'remove_flo': False, #bool(convert_png),
             'extensions': args.extensions
         })
 

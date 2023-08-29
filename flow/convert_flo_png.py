@@ -40,7 +40,7 @@ def convert_flo(input_flo_path,
                                    and output_metadata.exists()):
         return
 
-    flow = cv2.optflow.readOpticalFlow(str(input_flo_path))
+    flow = cv2.readOpticalFlow(str(input_flo_path))
     flow_x, flow_y = flow[:, :, 0], flow[:, :, 1]
     magnitude = np.sqrt(flow_x**2 + flow_y**2)
     angle = np.arctan2(flow_y, flow_x)

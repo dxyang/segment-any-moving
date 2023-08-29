@@ -29,6 +29,7 @@ def main():
                         help='Required unless --model set to "appearance".')
     parser.add_argument('--output-dir', type=Path, required=True)
     parser.add_argument('--visualize', action='store_true')
+    parser.add_argument('--vis_threshold', default=0.7, type=float)
     parser.add_argument(
         '--model', choices=['joint', 'appearance', 'motion'], default='joint')
 
@@ -92,6 +93,8 @@ def main():
         '--save_images', args.visualize,
         '--output_dir', args.output_dir,
         '--quiet',
+        '--vis_threshold', args.vis_threshold,
+        '--vis_image_dir', args.frames_dir,
         '--recursive'])
     subprocess_call(cmd + args, cwd=str(detectron_dir))
 

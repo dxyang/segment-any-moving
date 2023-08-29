@@ -23,7 +23,7 @@ def main():
     args = parser.parse_args()
 
     with open(args.config, 'r') as f:
-        config = yaml.load(f)
+        config = yaml.safe_load(f)
 
     args.output_dir.mkdir(exist_ok=True, parents=True)
     common_setup(__file__, args.output_dir)

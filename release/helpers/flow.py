@@ -28,5 +28,5 @@ def compute_flow_helper(config,
         '--flownet2-model', 'kitti',
         '--quiet'
     ]
-    cmd = ['python', 'flow/compute_flow_sequences.py'] + args
+    cmd = ['python', '-m flow.compute_flow_sequences'] + args
     subprocess_call(cmd)
